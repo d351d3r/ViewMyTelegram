@@ -20,7 +20,12 @@ void TdParse::loop() {
           continue;
         }
         if (action == "q") {
+          std::cout << "Exit.." << std::endl;
           return;
+        }
+        else if (action == "l") {
+          std::cout << "Logging out..." << std::endl;
+          send_query(td_api::make_object<td_api::logOut>(), {});
         }
         if (action == "u") {
           std::cout << "Checking for updates..." << std::endl;
@@ -38,10 +43,13 @@ void TdParse::loop() {
         } else if (action == "me") {
           send_query(td_api::make_object<td_api::getMe>(),
                      [this](Object object) { std::cout << to_string(object) << std::endl; });
-        } else if (action == "l") {
-          std::cout << "Logging out..." << std::endl;
-          send_query(td_api::make_object<td_api::logOut>(), {});
         } else if (action == "m") {
+          std::int64_t chat_id;
+          ss >> chat_id;
+          ss.get();
+          std::string text;
+          std::getline(ss, text);
+        } else if (action == "add") {
           std::int64_t chat_id;
           ss >> chat_id;
           ss.get();
