@@ -11,7 +11,7 @@ auto TdParse::create_authentication_query_handler() {
         };
     }
 
-    void TdParse::on_authorization_state_update() {
+ void TdParse::on_authorization_state_update() {
         authentication_query_id_++;
         td_api::downcast_call(
                 *authorization_state_,
@@ -92,7 +92,7 @@ auto TdParse::create_authentication_query_handler() {
                         }));
     }
 
-    void TdParse::check_authentication_error(Object object) {
+     void TdParse::check_authentication_error(Object object) {
         if (object->get_id() == td_api::error::ID) {
             auto error = td::move_tl_object_as<td_api::error>(object);
             std::cout << "Error: " << to_string(error) << std::flush;

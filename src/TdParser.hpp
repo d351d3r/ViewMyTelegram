@@ -19,6 +19,14 @@ namespace td_api = td::td_api;
 
 
 class TdParse {
+public:
+    TdParse() {
+        td::ClientManager::execute(td_api::make_object<td_api::setLogVerbosityLevel>(1));
+        client_manager_ = std::make_unique<td::ClientManager>();
+        client_id_ = client_manager_->create_client_id();
+        send_query(td_api::make_object<td_api::getOption>("version"), {});
+    }
+    void loop();
 private:
     std::int64_t admin_log_chat_id = -1;
     std::int32_t admin_log_admin_action_id = 0;
@@ -30,17 +38,9 @@ private:
     bool stop_dump = false;
     nlohmann::json entries;
     std::uint64_t handled_query_id = 0;
+    
     std::vector<int> chats_to_parse;
-public:
-    TdParse() {
-        td::ClientManager::execute(td_api::make_object<td_api::setLogVerbosityLevel>(1));
-        client_manager_ = std::make_unique<td::ClientManager>();
-        client_id_ = client_manager_->create_client_id();
-        send_query(td_api::make_object<td_api::getOption>("version"), {});
-    }
-    void loop();
 
-private:
     using Object = td_api::object_ptr<td_api::Object>;
     std::unique_ptr<td::ClientManager> client_manager_;
     std::int32_t client_id_{0};
@@ -69,11 +69,12 @@ private:
 
     void process_update(td_api::object_ptr<td_api::Object> update);
     
-    auto create_authentication_query_handler();
+    auto  create_authentication_query_handler();
 
-    void on_authorization_state_update();
+    void  on_authorization_state_update();
 
-    void check_authentication_error(Object object);
+    void  check_authentication_error(Object object);
 
     std::uint64_t next_query_id();
+
 };
