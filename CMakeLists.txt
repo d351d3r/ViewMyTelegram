@@ -16,13 +16,13 @@ include_directories("include/"
 
 set(HEADERS "include/date_printer.hpp"
         "include/overload.hpp"
-        "include/TdParser.hpp")
+        "include/TdParser.hpp"
+        "include/monitoring_chats.hpp")
 
 # Add your source files here
 set(SOURCES "src/main.cpp"
         "src/actions.cpp"
         "src/auth.cpp"
-        "src/monitoring_chats.cpp"
         "src/update.cpp")
 
 add_subdirectory(third_party/td)
