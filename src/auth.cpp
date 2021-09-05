@@ -77,14 +77,14 @@ auto TdParse::create_authentication_query_handler() {
                         },
                         [this](td_api::authorizationStateWaitTdlibParameters &) {
                             auto parameters = td_api::make_object<td_api::tdlibParameters>();
-                            parameters->database_directory_ = "Telegram";
+                            parameters->database_directory_ = "tdlib";
                             parameters->use_message_database_ = true;
                             parameters->use_secret_chats_ = true;
                             parameters->api_id_ = 94575;
                             parameters->api_hash_ = "a3406de8d171bb422bb6ddf3bbd800e2";
                             parameters->system_language_code_ = "en";
                             parameters->device_model_ = "Desktop";
-                            parameters->application_version_ = "1.7";
+                            parameters->application_version_ = "1.0";
                             parameters->enable_storage_optimizer_ = true;
                             TdParse::send_query(td_api::make_object<td_api::setTdlibParameters>(std::move(parameters)),
                                        TdParse::create_authentication_query_handler());
